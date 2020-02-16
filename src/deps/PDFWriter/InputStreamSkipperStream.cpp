@@ -53,7 +53,8 @@ IOBasicTypes::LongBufferSizeType InputStreamSkipperStream::Read(IOBasicTypes::By
 
 bool InputStreamSkipperStream::NotEnded()
 {
-	return mStream->NotEnded();
+	// CrashFix: If mStream is null, then return false to show that stream is ended, otherwise function may trigger segfault EXC_BAD_ACCESS
+    return mStream ? mStream->NotEnded() : false;
 }
 
 
